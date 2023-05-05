@@ -49,12 +49,13 @@ public class DBConnection {
 
         try{
             PreparedStatement statement=connection.prepareStatement("" +
-                    "INSERT INTO users(email, password, full_name)" +
-                    "VALUES(?, ?, ?)");
+                    "INSERT INTO users(email, password, full_name, role_id)" +
+                    "VALUES(?, ?, ?, ?)");
 
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getFullName());
+            statement.setInt(4, user.getRole());
 
             rows=statement.executeUpdate();
             statement.close();

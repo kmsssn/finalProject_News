@@ -25,6 +25,7 @@ public class AddUserServlet extends HttpServlet {
         String password=request.getParameter("password");
         String repPassword=request.getParameter("repeat_password");
         String fullName=request.getParameter("full_name");
+        int role_id= Integer.valueOf(request.getParameter("role_id"));
 
         Users checkUser= DBConnection.getUser(email);
             if(checkUser==null){
@@ -34,6 +35,7 @@ public class AddUserServlet extends HttpServlet {
                     user.setEmail(email);
                     user.setPassword(password);
                     user.setFullName(fullName);
+                    user.setRole(role_id);
                     if(DBConnection.addUser(user)){
                         redirect="/register?success";
                     }
