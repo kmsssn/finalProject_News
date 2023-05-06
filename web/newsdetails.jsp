@@ -15,20 +15,11 @@
                     News news= (News) request.getAttribute("news");
                     if (news!=null){
                 %>
-                <div class="p-5 mb-3" style="background-color: #dee1df;">
-
-                    <h3><%=news.getTitle()%>
-                    </h3>
-                    <h6>Category: <%=news.getCategory().getName()%></h6>
-
-                    <p><%=news.getContent()%>
-                    </p>
-                    <p>
-                        Posted by <strong><%=news.getUser().getFullName()%>
-                    </strong>
-                        At <strong><%=news.getPostDate()%>
-                    </strong>
-                    </p>
+                <div class="card">
+                        <h5 class="card-header"><%=news.getTitle()%></h5>
+                    <div class="card-body">
+                        <h6>Category: <%=news.getCategory().getName()%></h6>
+                        <p class="card-text"><%=news.getContent()%></p>
                     <%
                         if (currentUser != null){
                             if (currentUser.getId() == news.getUser().getId() || currentUser.getRole()==1) {
@@ -135,16 +126,20 @@
                             }
                         }
                     %>
+                        <div class="card-footer text-body-secondary mt-2">
+                            Posted by <%=news.getUser().getFullName()%> at <%=news.getPostDate()%>
+                        </div>
+                    </div>
                 </div>
                 <%
                     if (currentUser != null) {
                 %>
-                <div>
+                <div class="mt-3">
                     <form action="/addcomment" method="post">
                         <input type="hidden" name="news_id" value="<%=news.getId()%>">
                         <div class="row">
                             <div class="col-12">
-                                <textarea class="form-control" name="comment"></textarea>
+                                <textarea class="form-control" name="comment" placeholder="Comment here"></textarea>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -165,11 +160,21 @@
                                 for(Comments comment : comments){
                         %>
                         <div class="card p-3 mt-3">
-                            <div class="row mt-5">
-                                <div class="col-12">
-                                    <h5><%=comment.getUser().getFullName()%></h5>
-                                    <p><%=comment.getComment()%></p>
-                                    <p>At <strong><%=comment.getPostDate()%></strong></p>
+                                <div class="col-md-8">
+                                    <div class="d-flex flex-column" id="comment-container">
+                                        <div class="bg-white">
+                                            <div class="flex-row d-flex">
+                                                <img src="imgs/no-ava.jpg" width="50" class="rounded-circle">
+                                                <div class="d-flex flex-column justify-content-start ms-3">
+                                                    <span class="d-block font-weight-bold">
+                                                        <%=comment.getUser().getFullName()%></span>
+                                                    <span class="date text-black-50">Public
+                                                        <%=comment.getPostDate()%></span>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="comment-text"><%=comment.getComment()%></p>
+                                            </div>
                             <%
                                 if (currentUser!=null){
                                     if(currentUser.getRole()==1 || currentUser.getId() == news.getUser().getId()){
@@ -204,8 +209,9 @@
                                     }
                                 }
                             %>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                         </div>
                             <%
                                     }

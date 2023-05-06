@@ -16,17 +16,17 @@
                 if(news!=null){
                     for(News n : news){
             %>
-            <div class="p-5 mb-3" style="background-color: #c7c6c6">
+            <div class="card mt-3">
                 <a href="news-details?id=<%=n.getId()%>">
-                    <h3><%=n.getTitle()%></h3>
+                    <h5 class="card-header"><%=n.getTitle()%></h5>
                 </a>
-                <h5>Category: <strong><%=n.getCategory().getName()%></strong></h5>
-                <p><%=n.getContent()%></p>
-                <p>Posted by <strong><%=n.getUser().getFullName()%></strong>
-                    at <strong><%=n.getPostDate()%></strong></p>
-            </div>
-            <div class="p-5 mb-3" style="background-color: #c7c6c6">
-                <a href="#">Show all comments></a>
+                <div class="card-body">
+                    <h6>Category: <%=n.getCategory().getName()%></h6>
+                    <p class="card-text"><%=n.getContent()%></p>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    Posted by <%=n.getUser().getFullName()%> at <%=n.getPostDate()%>
+                </div>
             </div>
             <%
                     }
